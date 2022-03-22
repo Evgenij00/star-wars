@@ -1,6 +1,8 @@
+import { extractId } from './getUserId'
+
 export const transformPlanet = planet => {
   return {
-    id: this._extractId(planet),
+    id: extractId(planet),
     name: planet.name,
     population: planet.population,
     rotationPeriod: planet.rotation_period,
@@ -10,7 +12,7 @@ export const transformPlanet = planet => {
 
 export const transformStarship = starship => {
   return {
-    id: this._extractId(starship),
+    id: extractId(starship),
     name: starship.name,
     model: starship.model,
     manufacturer: starship.manufacturer,
@@ -24,7 +26,7 @@ export const transformStarship = starship => {
 
 export const transformPerson = person => {
   return {
-    id: this._extractId(person),
+    id: extractId(person),
     name: person.name,
     gender: person.gender,
     birthYear: person.birth_year,

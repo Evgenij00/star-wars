@@ -13,8 +13,7 @@ export const App = () => {
       <div className="stardb-app">
         <Header />
         <Switch>
-          <Route path="/" render={() => <h2>Welcome to StarDB</h2>} exact />
-
+          <Route exact path="/" render={() => <h2>Welcome to Star Wars</h2>} />
           <Route path="/people/:id?" component={PeoplePage} />
         </Switch>
       </div>

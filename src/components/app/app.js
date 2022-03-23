@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
 import 'normalize.css'
 import './app.css'
@@ -12,13 +12,11 @@ export const App = () => {
     <BrowserRouter>
       <div className="stardb-app">
         <Header />
-        <Routes>
-          <Route path="/" element={<h2>Welcome to StarDB</h2>} />
+        <Switch>
+          <Route path="/" render={() => <h2>Welcome to StarDB</h2>} exact />
 
-          <Route path="/people/:id" element={<PeoplePage />} />
-          <Route path="/planets/:id" element={<h2>PlanetsPage</h2>} />
-          <Route path="/starships/:id" exact element={<h2>StarshipsPage</h2>} />
-        </Routes>
+          <Route path="/people/:id?" component={PeoplePage} />
+        </Switch>
       </div>
     </BrowserRouter>
   )

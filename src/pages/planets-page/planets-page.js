@@ -3,12 +3,13 @@ import { useParams, useHistory } from 'react-router-dom'
 
 import { transformPlanet } from '../../utils'
 import { getAllPlanets, getPlanet, getPlanetImage } from '../../service'
+import { Spinner } from '../../components'
 
 export const PlanetsPage = () => {
   const { id } = useParams()
   const history = useHistory()
 
-  const [planets, setPlanets] = useState([])
+  const [planets, setPlanets] = useState(null)
   const [planet, setPlanet] = useState(null)
   const [planetImage, setPlanetImage] = useState(null)
 
@@ -28,6 +29,7 @@ export const PlanetsPage = () => {
   useEffect(() => {
     const sendRequest = async () => {
       try {
+        setPlanet(null)
         const { data } = await getPlanet(id)
         setPlanet(transformPlanet(data))
         setPlanetImage(getPlanetImage(id))
@@ -44,20 +46,24 @@ export const PlanetsPage = () => {
   return (
     <div className="row mb2">
       <div className="col-md-6">
-        <ul className="item-list list-group">
-          {planets.map(item => (
-            <li
-              className="list-group-item"
-              key={item.id}
-              onClick={() => history.push(`/planets/${item.id}`)}
-            >
-              <span>{item.name}</span>
-            </li>
-          ))}
-        </ul>
+        {planets ? (
+          <ul className="item-list list-group">
+            {planets.map(item => (
+              <li
+                className="list-group-item"
+                key={item.id}
+                onClick={() => history.push(`/planets/${item.id}`)}
+              >
+                <span>{item.name}</span>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <Spinner />
+        )}
       </div>
 
-      {planet && planetImage && (
+      {planet && planetImage ? (
         <div className="col-md-6">
           <div className="item-details card">
             <img className="item-image" src={planetImage} alt="item" />
@@ -83,6 +89,8 @@ export const PlanetsPage = () => {
             </div>
           </div>
         </div>
+      ) : (
+        <Spinner />
       )}
     </div>
   )

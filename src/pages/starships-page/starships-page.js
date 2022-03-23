@@ -3,12 +3,13 @@ import { useParams, useHistory } from 'react-router-dom'
 
 import { transformStarship } from '../../utils'
 import { getAllStarships, getStarship, getStarshipImage } from '../../service'
+import { Spinner } from '../../components'
 
 export const StarshipsPage = () => {
   const { id } = useParams()
   const history = useHistory()
 
-  const [starships, setStarships] = useState([])
+  const [starships, setStarships] = useState(null)
   const [starship, setStarship] = useState(null)
   const [starshipImage, setStarshipImage] = useState(null)
 
@@ -28,6 +29,7 @@ export const StarshipsPage = () => {
   useEffect(() => {
     const sendRequest = async () => {
       try {
+        setStarship(null)
         const { data } = await getStarship(id)
         setStarship(transformStarship(data))
         setStarshipImage(getStarshipImage(id))
@@ -42,22 +44,26 @@ export const StarshipsPage = () => {
   return (
     <div className="row mb2">
       <div className="col-md-6">
-        <ul className="item-list list-group">
-          {starships.map(item => (
-            <li
-              className="list-group-item"
-              key={item.id}
-              onClick={() => history.push(`/starships/${item.id}`)}
-            >
-              <span>
-                {item.name} ({item.model})
-              </span>
-            </li>
-          ))}
-        </ul>
+        {starships ? (
+          <ul className="item-list list-group">
+            {starships.map(item => (
+              <li
+                className="list-group-item"
+                key={item.id}
+                onClick={() => history.push(`/starships/${item.id}`)}
+              >
+                <span>
+                  {item.name} ({item.model})
+                </span>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <Spinner />
+        )}
       </div>
 
-      {starship && starshipImage && (
+      {starship && starshipImage ? (
         <div className="col-md-6">
           <div className="item-details card">
             <img className="item-image" src={starshipImage} alt="item" />
@@ -84,6 +90,8 @@ export const StarshipsPage = () => {
             </div>
           </div>
         </div>
+      ) : (
+        <Spinner />
       )}
     </div>
   )

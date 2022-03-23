@@ -5,12 +5,13 @@ import './people-page.css'
 
 import { transformPerson } from '../../utils'
 import { getAllPeople, getPerson, getPersonImage } from '../../service'
+import { Spinner } from '../../components'
 
 export const PeoplePage = () => {
   const { id } = useParams()
   const history = useHistory()
 
-  const [people, setPeople] = useState([])
+  const [people, setPeople] = useState(null)
   const [person, setPerson] = useState(null)
   const [personImage, setPersonImage] = useState(null)
 
@@ -30,6 +31,7 @@ export const PeoplePage = () => {
   useEffect(() => {
     const sendRequest = async () => {
       try {
+        setPerson(null)
         const { data } = await getPerson(id)
         setPerson(transformPerson(data))
         setPersonImage(getPersonImage(id))
@@ -44,20 +46,24 @@ export const PeoplePage = () => {
   return (
     <div className="row mb2">
       <div className="col-md-6">
-        <ul className="item-list list-group">
-          {people.map(item => (
-            <li
-              className="list-group-item"
-              key={item.id}
-              onClick={() => history.push(`/people/${item.id}`)}
-            >
-              <span>{item.name}</span>
-            </li>
-          ))}
-        </ul>
+        {people ? (
+          <ul className="item-list list-group">
+            {people.map(item => (
+              <li
+                className="list-group-item"
+                key={item.id}
+                onClick={() => history.push(`/people/${item.id}`)}
+              >
+                <span>{item.name}</span>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <Spinner />
+        )}
       </div>
 
-      {person && personImage && (
+      {person && personImage ? (
         <div className="col-md-6">
           <div className="item-details card">
             <img className="item-image" src={personImage} alt="item" />
@@ -78,6 +84,8 @@ export const PeoplePage = () => {
             </div>
           </div>
         </div>
+      ) : (
+        <Spinner />
       )}
     </div>
   )

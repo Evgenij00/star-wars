@@ -30,9 +30,8 @@ export const PeoplePage = () => {
   useEffect(() => {
     const sendRequest = async () => {
       try {
-        const { data: personData } = await getPerson(id)
-
-        setPerson(transformPerson(personData))
+        const { data } = await getPerson(id)
+        setPerson(transformPerson(data))
         setPersonImage(getPersonImage(id))
       } catch (e) {
         console.warn(e)

@@ -7,7 +7,7 @@ export const Header = () => {
   return (
     <div className="header d-flex">
       <h3>
-        <Link to="/">StarDB</Link>
+        <Link to="/">Star Wars</Link>
       </h3>
       <ul className="d-flex">
         <li>

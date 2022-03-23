@@ -5,7 +5,7 @@ import 'normalize.css'
 import './app.css'
 
 import { Header } from '../header'
-import { PeoplePage } from '../../pages'
+import { PeoplePage, PlanetsPage } from '../../pages'
 
 export const App = () => {
   return (
@@ -15,6 +15,7 @@ export const App = () => {
         <Switch>
           <Route exact path="/" render={() => <h2>Welcome to Star Wars</h2>} />
           <Route path="/people/:id?" component={PeoplePage} />
+          <Route path="/planets/:id?" component={PlanetsPage} />
         </Switch>
       </div>
     </BrowserRouter>

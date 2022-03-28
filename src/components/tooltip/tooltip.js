@@ -35,6 +35,15 @@ Tooltip.defaultProps = {
 const Container = styled.span`
   position: relative;
   cursor: pointer;
+
+  &:hover > span > svg > path:first-of-type,
+  &:hover > span > svg > path:last-of-type {
+    stroke: ${palette.orange};
+  }
+
+  &:hover > span > svg > path:nth-of-type(2) {
+    fill: ${palette.orange};
+  }
 `
 
 const Icon = styled(QuestionIcon)`

@@ -51,6 +51,8 @@ export const PeoplePage = () => {
       <RandomPlanet />
       <Container>
         <ListContainer>
+          <Title>All People</Title>
+
           {people ? (
             <List>
               {people.map(item => (
@@ -95,7 +97,13 @@ const ListContainer = styled.section`
 
   @media (max-width: 930px) {
     width: 100%;
+    order: 1;
   }
+`
+
+const Title = styled.div`
+  color: ${palette.orange};
+  padding: 20px 20px 10px;
 `
 
 const List = styled.ul`

@@ -3,7 +3,10 @@ import { useParams, useHistory } from 'react-router-dom'
 
 import { transformStarship } from '../../utils'
 import { getAllStarships, getStarship, getStarshipImage } from '../../service'
-import { Spinner } from '../../components'
+import { Person, RandomPlanet, Spinner } from '../../components'
+import { Starship } from '../../components/starship/starship'
+import styled from 'styled-components'
+import { palette } from '../../palette'
 
 export const StarshipsPage = () => {
   const { id } = useParams()
@@ -12,6 +15,7 @@ export const StarshipsPage = () => {
   const [starships, setStarships] = useState(null)
   const [starship, setStarship] = useState(null)
   const [starshipImage, setStarshipImage] = useState(null)
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     const sendRequest = async () => {
@@ -30,9 +34,11 @@ export const StarshipsPage = () => {
     const sendRequest = async () => {
       try {
         setStarship(null)
+        setLoading(true)
         const { data } = await getStarship(id)
         setStarship(transformStarship(data))
         setStarshipImage(getStarshipImage(id))
+        setLoading(false)
       } catch (e) {
         console.warn(e)
       }
@@ -42,53 +48,94 @@ export const StarshipsPage = () => {
   }, [id])
 
   return (
-    <div>
-      <div>
-        {starships ? (
-          <ul>
-            {starships.map(item => (
-              <li key={item.id} onClick={() => history.push(`/starships/${item.id}`)}>
-                <span>
-                  {item.name} ({item.model})
-                </span>
-              </li>
-            ))}
-          </ul>
-        ) : (
+    <>
+      <RandomPlanet />
+
+      <Container>
+        <ListContainer>
+          <Title>All Starships</Title>
+
+          {starships ? (
+            <List>
+              {starships.map(item => (
+                <Item key={item.id} onClick={() => history.push(`/starships/${item.id}`)}>
+                  <span>
+                    {item.name} - ({item.model})
+                  </span>
+                </Item>
+              ))}
+            </List>
+          ) : (
+            <Spinner />
+          )}
+        </ListContainer>
+
+        {loading ? (
           <Spinner />
+        ) : starship && starshipImage ? (
+          <Starship starship={starship} image={starshipImage} />
+        ) : (
+          <Message>Select a character from the list</Message>
         )}
-      </div>
-
-      {starship && starshipImage ? (
-        <div>
-          <div>
-            <img src={starshipImage} alt="item" />
-
-            <div>
-              <h4>{starship.name}</h4>
-
-              <ul>
-                <li>
-                  <span>Model</span>
-                  <span>{starship.model}</span>
-                </li>
-
-                <li>
-                  <span>Length</span>
-                  <span>{starship.length}</span>
-                </li>
-
-                <li>
-                  <span>Cost</span>
-                  <span>{starship.costInCredits}</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      ) : (
-        <Spinner />
-      )}
-    </div>
+      </Container>
+    </>
   )
 }
+
+const Container = styled.main`
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 16px 0;
+  min-height: 476px;
+
+  @media (max-width: 930px) {
+    flex-direction: column;
+  }
+`
+
+const ListContainer = styled.section`
+  background-color: ${palette.blockBackground};
+  border-radius: 0.25rem;
+  width: 50%;
+
+  @media (max-width: 930px) {
+    width: 100%;
+    order: 1;
+  }
+`
+
+const Title = styled.div`
+  color: ${palette.orange};
+  padding: 20px 20px 10px;
+`
+
+const List = styled.ul`
+  border-radius: inherit;
+`
+
+const Item = styled.li`
+  cursor: pointer;
+  padding: 0.75rem 1.25rem;
+  border: 1px solid ${palette.border};
+
+  &:first-of-type {
+    border-top-left-radius: inherit;
+    border-top-right-radius: inherit;
+  }
+
+  &:last-of-type {
+    border-bottom-left-radius: inherit;
+    border-bottom-right-radius: inherit;
+  }
+
+  &:hover {
+    background-color: ${palette.green};
+    transition: background-color 2ms;
+  }
+`
+
+const Message = styled.div`
+  padding-top: 20px;
+  color: ${palette.green};
+`

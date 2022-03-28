@@ -1,16 +1,12 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import ReactAudioPlayer from 'react-audio-player'
 
-import { Tooltip } from '../../components'
+import { Tooltip, Modal } from '../../components'
 import { palette } from '../../palette'
 import { tooltips } from '../../tolltips'
-import { sounds } from '../../sounds'
-import { Modal } from '../modal/modal'
 
-export const Person = ({ person, image, id }) => {
+export const Starship = ({ starship, image }) => {
   const [showModal, setShowModal] = useState(false)
-  const sound = sounds.filter(item => item.id === +id)[0]
 
   return (
     <OuterContainer>
@@ -18,28 +14,34 @@ export const Person = ({ person, image, id }) => {
 
       <Content>
         <Table>
-          <Caption>{person.name}</Caption>
+          <Caption>{starship.name}</Caption>
 
           <Body>
             <Row>
               <Cell>
-                <span>Gender</span>
-                <Tooltip data={tooltips.gender} />
+                <span>Model</span>
+                <Tooltip data={tooltips.model} />
               </Cell>
-              <Cell>{person.gender}</Cell>
+              <Cell>{starship.model}</Cell>
             </Row>
 
             <Row>
               <Cell>
-                <span>Eye Color</span>
-                <Tooltip data={tooltips.eyeColor} />
+                <span>Length</span>
+                <Tooltip data={tooltips.length} />
               </Cell>
-              <Cell>{person.eyeColor}</Cell>
+              <Cell>{starship.length}</Cell>
+            </Row>
+
+            <Row>
+              <Cell>
+                <span>Cost</span>
+                <Tooltip data={tooltips.cost} />
+              </Cell>
+              <Cell>{starship.costInCredits}</Cell>
             </Row>
           </Body>
         </Table>
-
-        {sound && sound.id && <Player src={sound.sound} controls />}
       </Content>
 
       {image && showModal && <Modal image={image} onClose={() => setShowModal(false)} />}
@@ -91,7 +93,7 @@ const Table = styled.table`
 `
 
 const Caption = styled.caption`
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   text-align: left;
   color: ${palette.green};
 `
@@ -106,14 +108,10 @@ const Cell = styled.td`
 
   &:first-of-type {
     padding-right: 20px;
+    white-space: nowrap;
   }
 
   & > span:last-of-type {
     margin-left: 8px;
   }
-`
-
-const Player = styled(ReactAudioPlayer)`
-  height: 35px;
-  width: 100%;
 `

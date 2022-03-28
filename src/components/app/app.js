@@ -38,22 +38,17 @@ const MainBlock = styled.div`
 `
 
 const InnerContainer = styled.div`
-  width: 930px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 20px 40px;
 
   @media (max-width: 930px) {
     width: 768px;
-    padding: 0 20px;
+    padding: 0 32px;
   }
 
   @media (max-width: 768px) {
     width: 100%;
-    padding: 0 10px;
+    padding: 0 24px;
   }
-`
-
-const Images = styled.img`
-  width: 100%;
-  border-radius: 1rem;
 `

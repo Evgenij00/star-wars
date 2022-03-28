@@ -53,7 +53,6 @@ const OuterContainer = styled.section`
   display: flex;
   align-items: center;
   gap: 16px;
-  margin-bottom: 16px;
   padding: 16px;
   background-color: ${palette.blockBackground};
   width: 50%;
@@ -61,6 +60,12 @@ const OuterContainer = styled.section`
 
   @media (max-width: 930px) {
     width: 100%;
+  }
+
+  @media (max-width: 500px) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
   }
 `
 
@@ -88,7 +93,7 @@ const Table = styled.table`
 `
 
 const Caption = styled.caption`
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   text-align: left;
   color: ${palette.green};
 `

@@ -124,7 +124,7 @@ const Image = styled.img`
 const Table = styled.table``
 
 const Caption = styled.caption`
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   text-align: left;
   color: ${palette.green};
 `

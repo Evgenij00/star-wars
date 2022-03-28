@@ -62,9 +62,24 @@ const OuterContainer = styled.div`
 const InnerContainer = styled.div`
   display: flex;
   gap: 50px;
-  width: 930px;
+  width: 1200px;
   margin: 0 auto;
   padding: 20px 40px;
+
+  @media (max-width: 930px) {
+    width: 768px;
+    padding: 0 32px;
+  }
+
+  @media (max-width: 930px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+    padding: 0 24px;
+  }
 `
 
 const Block = styled.div``

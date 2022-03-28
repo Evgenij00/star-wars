@@ -5,7 +5,6 @@ import { palette } from '../../palette'
 
 export const Header = () => {
   const location = useLocation()
-
   const [showMenu, setShowMenu] = useState(false)
 
   useEffect(() => {
@@ -87,7 +86,6 @@ const InnerContainer = styled.div`
 
 const MainLink = styled(Link)`
   text-decoration: none;
-  color: white;
   font-weight: normal;
   line-height: 1.2;
   font-size: 2rem;
@@ -96,6 +94,12 @@ const MainLink = styled(Link)`
 
   &:hover {
     color: ${palette.orange};
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+    padding-left: 16px;
   }
 `
 

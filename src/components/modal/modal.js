@@ -46,4 +46,12 @@ const InnerContainer = styled.div`
 
 const Image = styled.img`
   border-radius: 1rem;
+
+  @media (max-width: 600px) {
+    width: 350px;
+  }
+
+  @media (max-width: 450px) {
+    width: 250px;
+  }
 `

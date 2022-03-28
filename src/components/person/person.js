@@ -14,7 +14,7 @@ export const Person = ({ person, image, id }) => {
 
   return (
     <OuterContainer>
-      <Image src={image} alt="item" onClick={() => setShowModal(true)} />
+      <Image src={image} alt="person" onClick={() => setShowModal(true)} />
 
       <Content>
         <Table>
@@ -94,6 +94,7 @@ const Caption = styled.caption`
   margin-bottom: 20px;
   text-align: left;
   color: ${palette.green};
+  font-size: 20px;
 `
 
 const Body = styled.tbody``

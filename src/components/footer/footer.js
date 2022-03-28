@@ -54,7 +54,7 @@ export const Footer = () => {
   )
 }
 
-const OuterContainer = styled.div`
+const OuterContainer = styled.footer`
   padding: 40px 0 16px;
   border-top: 1px solid ${palette.orange};
 `
@@ -84,9 +84,11 @@ const InnerContainer = styled.div`
 
 const Block = styled.div``
 
-const Title = styled.div`
+const Title = styled.h1`
+  font-size: 16px;
   color: ${palette.green};
   margin-bottom: 16px;
+  font-size: 18px;
 `
 
 const List = styled.ul`

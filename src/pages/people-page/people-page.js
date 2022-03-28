@@ -47,7 +47,7 @@ export const PeoplePage = () => {
   }, [id])
 
   return (
-    <>
+    <main>
       <RandomPlanet />
       <Container>
         <ListContainer>
@@ -74,11 +74,11 @@ export const PeoplePage = () => {
           <Message>Select a character from the list</Message>
         )}
       </Container>
-    </>
+    </main>
   )
 }
 
-const Container = styled.main`
+const Container = styled.div`
   display: flex;
   align-items: flex-start;
   gap: 16px;
@@ -101,9 +101,11 @@ const ListContainer = styled.section`
   }
 `
 
-const Title = styled.div`
+const Title = styled.h1`
   color: ${palette.orange};
   padding: 20px 20px 10px;
+  margin: 0;
+  font-size: 20px;
 `
 
 const List = styled.ul`
@@ -131,7 +133,7 @@ const Item = styled.li`
   }
 `
 
-const Message = styled.div`
+const Message = styled.p`
   padding-top: 20px;
   color: ${palette.green};
 `

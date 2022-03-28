@@ -4,9 +4,7 @@ import styled from 'styled-components'
 
 import 'normalize.css'
 
-const gif = require('../../assets/images/main.gif')
-
-import { Header, Footer, Preview, RandomPlanet } from '../../components'
+import { Header, Footer, Preview } from '../../components'
 import { PeoplePage, PlanetsPage, StarshipsPage } from '../../pages'
 import { palette } from '../../palette'
 

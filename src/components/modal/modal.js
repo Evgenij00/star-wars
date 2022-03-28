@@ -23,7 +23,7 @@ export const Modal = ({ image, onClose }) => {
   )
 }
 
-const OuterContainer = styled.div`
+const OuterContainer = styled.section`
   display: flex;
   align-items: center;
   justify-content: center;

@@ -127,6 +127,7 @@ const Caption = styled.caption`
   margin-bottom: 10px;
   text-align: left;
   color: ${palette.green};
+  font-size: 20px;
 `
 
 const Body = styled.tbody``

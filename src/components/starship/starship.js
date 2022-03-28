@@ -10,7 +10,7 @@ export const Starship = ({ starship, image }) => {
 
   return (
     <OuterContainer>
-      <Image src={image} alt="item" onClick={() => setShowModal(true)} />
+      <Image src={image} alt="starship" onClick={() => setShowModal(true)} />
 
       <Content>
         <Table>
@@ -96,6 +96,7 @@ const Caption = styled.caption`
   margin-bottom: 10px;
   text-align: left;
   color: ${palette.green};
+  font-size: 20px;
 `
 
 const Body = styled.tbody``

@@ -54,7 +54,7 @@ export const Header = () => {
   )
 }
 
-const OuterContainer = styled.aside`
+const OuterContainer = styled.header`
   position: relative;
 
   @media (max-width: 768px) {
@@ -62,7 +62,7 @@ const OuterContainer = styled.aside`
   }
 `
 
-const InnerContainer = styled.div`
+const InnerContainer = styled.nav`
   display: flex;
   align-items: center;
   gap: 20px;

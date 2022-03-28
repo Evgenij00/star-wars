@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import styled from 'styled-components'
 import { palette } from '../../palette'
 
 export const Header = () => {
+  const location = useLocation()
+
   const [showMenu, setShowMenu] = useState(false)
 
   useEffect(() => {
@@ -13,6 +15,18 @@ export const Header = () => {
       document.body.style.overflow = 'visible'
     }
   }, [showMenu])
+
+  const defineActiveLink = (currentPath, targetPath, label) => {
+    return currentPath.includes(targetPath) ? (
+      <LinkActiveItem>
+        <LinkActiveNav to={targetPath}>{label}</LinkActiveNav>
+      </LinkActiveItem>
+    ) : (
+      <LinkItem>
+        <LinkNav to={targetPath}>{label}</LinkNav>
+      </LinkItem>
+    )
+  }
 
   return (
     <OuterContainer>
@@ -28,17 +42,9 @@ export const Header = () => {
         </h3>
 
         <List>
-          <LinkItem>
-            <LinkNav to="/people">People</LinkNav>
-          </LinkItem>
-
-          <LinkItem>
-            <LinkNav to="/planets">Planets</LinkNav>
-          </LinkItem>
-
-          <LinkItem>
-            <LinkNav to="/starships">Starships</LinkNav>
-          </LinkItem>
+          {defineActiveLink(location.pathname, '/people', 'People')}
+          {defineActiveLink(location.pathname, '/planets', 'Planets')}
+          {defineActiveLink(location.pathname, '/starships', 'Starships')}
         </List>
       </InnerContainer>
     </OuterContainer>
@@ -62,24 +68,30 @@ const InnerContainer = styled.div`
 
   @media (max-width: 768px) {
     display: ${props => (props.showMenu ? 'flex' : 'none')};
+    flex-direction: column;
+    align-items: flex-start;
     position: fixed;
     top: 0;
     left: 0;
     z-index: 100;
     width: 100%;
     height: 100%;
-    padding: 20px;
+    padding: 65px 20px 20px;
     background-color: ${palette.mainBackground};
-
-    padding-top: 65px;
-    flex-direction: column;
-    align-items: flex-start;
   }
 `
 
 const MainLink = styled(Link)`
   text-decoration: none;
   color: white;
+  font-weight: normal;
+  line-height: 1.2;
+  font-size: 2rem;
+  transition: color 2ms;
+
+  &:hover {
+    color: ${palette.orange};
+  }
 `
 
 const List = styled.ul`
@@ -96,15 +108,24 @@ const List = styled.ul`
 const LinkItem = styled.li`
   padding: 0.5rem 1rem;
   border-radius: 3px;
+`
 
-  &:hover {
-    background: ${palette.yellow};
-  }
+const LinkActiveItem = styled(LinkItem)`
+  background: ${palette.blockBackground};
 `
 
 const LinkNav = styled(Link)`
   text-decoration: none;
   color: ${palette.green};
+  transition: color 1ms;
+
+  &:hover {
+    color: ${palette.orange};
+  }
+`
+
+const LinkActiveNav = styled(LinkNav)`
+  color: ${palette.orange};
 `
 
 const BurgerBtn = styled.button`

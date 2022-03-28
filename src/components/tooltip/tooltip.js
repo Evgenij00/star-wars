@@ -34,6 +34,7 @@ Tooltip.defaultProps = {
 
 const Container = styled.span`
   position: relative;
+  cursor: pointer;
 `
 
 const Icon = styled(QuestionIcon)`

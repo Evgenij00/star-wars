@@ -1,23 +1,21 @@
-import React, { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import React, { useState } from 'react'
 import styled from 'styled-components'
+import ReactAudioPlayer from 'react-audio-player'
 
-import { transformPerson } from '../../utils'
-import { getPerson, getPersonImage } from '../../service'
-import { Spinner, Tooltip } from '../../components'
+import { Tooltip } from '../../components'
 import { palette } from '../../palette'
 import { tooltips } from '../../tolltips'
-import { useAudio } from '../../hooks'
+import { sounds } from '../../sounds'
+import { Modal } from '../modal/modal'
 
-import sound from '../../assets/audios/d.mp3'
-
-export const Person = ({ person, image }) => {
-  const [playing, toggle] = useAudio(sound)
+export const Person = ({ person, image, id }) => {
+  const [showModal, setShowModal] = useState(false)
+  const sound = sounds.filter(item => item.id === +id)[0]
 
   return (
-    <InfoContainer>
-      <div>
-        <Image src={image} alt="item" />
+    <OuterContainer>
+      <Header>
+        <Image src={image} alt="item" onClick={() => setShowModal(true)} />
 
         <Table>
           <Caption>{person.name}</Caption>
@@ -40,19 +38,16 @@ export const Person = ({ person, image }) => {
             </Row>
           </Body>
         </Table>
-      </div>
+      </Header>
 
-      <div>
-        <button onClick={toggle}>{playing ? 'Pause' : 'Play'}</button>
-      </div>
-    </InfoContainer>
+      {sound && sound.id && <Player src={sound.sound} controls />}
+
+      {image && showModal && <Modal image={image} onClose={() => setShowModal(false)} />}
+    </OuterContainer>
   )
 }
 
-const InfoContainer = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 16px;
+const OuterContainer = styled.div`
   padding: 16px;
   background-color: ${palette.blockBackground};
   width: 50%;
@@ -63,10 +58,23 @@ const InfoContainer = styled.div`
   }
 `
 
+const Header = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+`
+
 const Image = styled.img`
+  cursor: pointer;
   width: 30%;
   min-width: 30%;
   border-radius: 10px;
+  transition: width 0.5s;
+
+  &:hover {
+    width: 40%;
+  }
 `
 
 const Table = styled.table``
@@ -92,4 +100,8 @@ const Cell = styled.td`
   & > span:last-of-type {
     margin-left: 8px;
   }
+`
+
+const Player = styled(ReactAudioPlayer)`
+  height: 35px;
 `

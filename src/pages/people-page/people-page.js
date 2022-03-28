@@ -60,7 +60,7 @@ export const PeoplePage = () => {
         )}
       </ListContainer>
 
-      {person && personImage ? <Person person={person} image={personImage} /> : <Spinner />}
+      {person && personImage ? <Person person={person} image={personImage} id={id} /> : <Spinner />}
     </Container>
   )
 }
@@ -106,6 +106,6 @@ const Item = styled.li`
 
   &:hover {
     background-color: ${palette.green};
-    color: ${palette.orange};
+    transition: background-color 2ms;
   }
 `

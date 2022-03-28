@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react'
+import styled from 'styled-components'
 import { useParams, useHistory } from 'react-router-dom'
 
 import { transformPlanet } from '../../utils'
 import { getAllPlanets, getPlanet, getPlanetImage } from '../../service'
-import { Spinner } from '../../components'
+import { RandomPlanet, Spinner } from '../../components'
+import { Planet } from '../../components/planet/planet'
+import { palette } from '../../palette'
 
 export const PlanetsPage = () => {
   const { id } = useParams()
@@ -12,6 +15,7 @@ export const PlanetsPage = () => {
   const [planets, setPlanets] = useState(null)
   const [planet, setPlanet] = useState(null)
   const [planetImage, setPlanetImage] = useState(null)
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     const sendRequest = async () => {
@@ -29,10 +33,12 @@ export const PlanetsPage = () => {
   useEffect(() => {
     const sendRequest = async () => {
       try {
+        setLoading(true)
         setPlanet(null)
         const { data } = await getPlanet(id)
         setPlanet(transformPlanet(data))
         setPlanetImage(getPlanetImage(id))
+        setLoading(false)
       } catch (e) {
         console.warn(e)
       }
@@ -42,50 +48,83 @@ export const PlanetsPage = () => {
   }, [id])
 
   return (
-    <div>
-      <div>
-        {planets ? (
-          <ul>
-            {planets.map(item => (
-              <li key={item.id} onClick={() => history.push(`/planets/${item.id}`)}>
-                <span>{item.name}</span>
-              </li>
-            ))}
-          </ul>
-        ) : (
+    <>
+      <RandomPlanet />
+      <Container>
+        <ListContainer>
+          {planets ? (
+            <List>
+              {planets.map(item => (
+                <Item key={item.id} onClick={() => history.push(`/planets/${item.id}`)}>
+                  <span>{item.name}</span>
+                </Item>
+              ))}
+            </List>
+          ) : (
+            <Spinner />
+          )}
+        </ListContainer>
+
+        {loading ? (
           <Spinner />
+        ) : planetImage && planetImage ? (
+          <Planet planet={planet} image={planetImage} />
+        ) : (
+          <Message>Select a character from the list</Message>
         )}
-      </div>
-
-      {planet && planetImage ? (
-        <div>
-          <div>
-            <img src={planetImage} alt="item" />
-
-            <div>
-              <h4>{planet.name}</h4>
-              <ul>
-                <li>
-                  <span className="term">Population</span>
-                  <span>{planet.population}</span>
-                </li>
-
-                <li>
-                  <span className="term">Rotation Period</span>
-                  <span>{planet.rotationPeriod}</span>
-                </li>
-
-                <li>
-                  <span>Diameter</span>
-                  <span>{planet.diameter}</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      ) : (
-        <Spinner />
-      )}
-    </div>
+      </Container>
+    </>
   )
 }
+
+const Container = styled.main`
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 16px 0;
+  min-height: 476px;
+
+  @media (max-width: 930px) {
+    flex-direction: column;
+  }
+`
+
+const ListContainer = styled.section`
+  background-color: ${palette.blockBackground};
+  border-radius: 0.25rem;
+  width: 50%;
+
+  @media (max-width: 930px) {
+    width: 100%;
+  }
+`
+
+const List = styled.ul`
+  border-radius: inherit;
+`
+
+const Item = styled.li`
+  cursor: pointer;
+  padding: 0.75rem 1.25rem;
+  border: 1px solid ${palette.border};
+
+  &:first-of-type {
+    border-top-left-radius: inherit;
+    border-top-right-radius: inherit;
+  }
+
+  &:last-of-type {
+    border-bottom-left-radius: inherit;
+    border-bottom-right-radius: inherit;
+  }
+
+  &:hover {
+    background-color: ${palette.green};
+    transition: background-color 2ms;
+  }
+`
+
+const Message = styled.div`
+  padding-top: 20px;
+  color: ${palette.green};
+`

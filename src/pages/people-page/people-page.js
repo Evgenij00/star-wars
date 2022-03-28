@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react'
-import { useParams, useHistory } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import styled from 'styled-components'
 
 import { transformPerson } from '../../utils'
 import { getAllPeople, getPerson, getPersonImage } from '../../service'
 import { Spinner } from '../../components'
+import { palette } from '../../palette'
+import { Person } from '../../components/person'
 
 export const PeoplePage = () => {
-  const { id } = useParams()
   const history = useHistory()
+  const { id } = useParams()
 
   const [people, setPeople] = useState(null)
   const [person, setPerson] = useState(null)
@@ -58,29 +60,7 @@ export const PeoplePage = () => {
         )}
       </ListContainer>
 
-      {person && personImage ? (
-        <InfoContainer>
-          <Image src={personImage} alt="item" />
-
-          <Table>
-            <Caption>{person.name}</Caption>
-
-            <Body>
-              <Row>
-                <Cell>Gender</Cell>
-                <Cell>{person.gender}</Cell>
-              </Row>
-
-              <Row>
-                <Cell>Eye Color</Cell>
-                <Cell>{person.eyeColor}</Cell>
-              </Row>
-            </Body>
-          </Table>
-        </InfoContainer>
-      ) : (
-        <Spinner />
-      )}
+      {person && personImage ? <Person person={person} image={personImage} /> : <Spinner />}
     </Container>
   )
 }
@@ -96,7 +76,7 @@ const Container = styled.section`
 `
 
 const ListContainer = styled.div`
-  background-color: #231f33;
+  background-color: ${palette.blockBackground};
   border-radius: 0.25rem;
   width: 50%;
 
@@ -112,7 +92,7 @@ const List = styled.ul`
 const Item = styled.li`
   cursor: pointer;
   padding: 0.75rem 1.25rem;
-  border: 1px solid #100e19;
+  border: 1px solid ${palette.border};
 
   &:first-of-type {
     border-top-left-radius: inherit;
@@ -123,43 +103,9 @@ const Item = styled.li`
     border-bottom-left-radius: inherit;
     border-bottom-right-radius: inherit;
   }
-`
 
-const InfoContainer = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 16px;
-  background-color: #231f33;
-  width: 50%;
-  border-radius: 0.25rem;
-
-  @media (max-width: 930px) {
-    width: 100%;
-  }
-`
-
-const Image = styled.img`
-  width: 30%;
-  min-width: 30%;
-  border-radius: 10px;
-`
-
-const Table = styled.table``
-
-const Caption = styled.caption`
-  margin-bottom: 20px;
-  text-align: left;
-`
-
-const Body = styled.tbody``
-
-const Row = styled.tr``
-
-const Cell = styled.td`
-  padding-bottom: 10px;
-
-  &:first-of-type {
-    padding-right: 20px;
+  &:hover {
+    background-color: ${palette.green};
+    color: ${palette.orange};
   }
 `

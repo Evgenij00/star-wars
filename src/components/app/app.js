@@ -6,6 +6,7 @@ import 'normalize.css'
 
 import { Header, RandomPlanet } from '../../components'
 import { PeoplePage, PlanetsPage, StarshipsPage } from '../../pages'
+import { palette } from '../../palette'
 
 export const App = () => {
   return (
@@ -27,16 +28,16 @@ export const App = () => {
 }
 
 const MainBlock = styled.div`
-  background-color: #100e19;
+  background-color: ${palette.mainBackground};
   min-height: 100vh;
-  color: white;
+  color: ${palette.color};
   font-family: 'Roboto', sans-serif;
 `
 
 const InnerContainer = styled.div`
   width: 930px;
   margin: 0 auto;
-  padding: 0 40px;
+  padding: 20px 40px;
 
   @media (max-width: 930px) {
     width: 768px;

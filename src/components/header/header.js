@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+import { palette } from '../../palette'
 
 export const Header = () => {
   const [showMenu, setShowMenu] = useState(false)
@@ -23,7 +24,7 @@ export const Header = () => {
 
       <InnerContainer showMenu={showMenu}>
         <h3>
-          <Link to="/">Star Wars</Link>
+          <MainLink to="/">Star Wars</MainLink>
         </h3>
 
         <List>
@@ -68,12 +69,17 @@ const InnerContainer = styled.div`
     width: 100%;
     height: 100%;
     padding: 20px;
-    background-color: #100e19;
+    background-color: ${palette.mainBackground};
 
     padding-top: 65px;
     flex-direction: column;
     align-items: flex-start;
   }
+`
+
+const MainLink = styled(Link)`
+  text-decoration: none;
+  color: white;
 `
 
 const List = styled.ul`
@@ -90,10 +96,15 @@ const List = styled.ul`
 const LinkItem = styled.li`
   padding: 0.5rem 1rem;
   border-radius: 3px;
+
+  &:hover {
+    background: ${palette.yellow};
+  }
 `
 
 const LinkNav = styled(Link)`
   text-decoration: none;
+  color: ${palette.green};
 `
 
 const BurgerBtn = styled.button`
@@ -108,14 +119,14 @@ const BurgerBtn = styled.button`
   left: 0;
   z-index: 200;
   background: none;
-  border: 2px solid #231f33;
+  border: 2px solid ${palette.border};
   border-radius: 4px;
   outline: none;
 
   & > div {
     width: 20px;
     height: 2px;
-    background-color: #231f33;
+    background-color: ${palette.border};
     margin: 6px 0;
     transition: 0.4s;
   }

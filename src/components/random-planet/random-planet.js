@@ -6,6 +6,9 @@ import { ErrorIndicator } from '../error-indicator'
 
 import { getPlanet } from '../../service'
 import { transformPlanet } from '../../utils'
+import { palette } from '../../palette'
+import { Tooltip } from '../tooltip'
+import { tooltips } from '../../tolltips'
 
 export const RandomPlanet = () => {
   const interval = 5000
@@ -69,17 +72,26 @@ const PlanetView = ({ planet }) => {
 
         <Body>
           <Row>
-            <Cell>Population</Cell>
+            <Cell>
+              <span>Population</span>
+              <Tooltip data={tooltips.population} />
+            </Cell>
             <Cell>{population}</Cell>
           </Row>
 
           <Row>
-            <Cell>Diameter</Cell>
+            <Cell>
+              <span>Diameter</span>
+              <Tooltip data={tooltips.diameter} />
+            </Cell>
             <Cell>{diameter}</Cell>
           </Row>
 
           <Row>
-            <Cell>Rotation Period</Cell>
+            <Cell>
+              <span>Rotation Period</span>
+              <Tooltip data={tooltips.rotationPeriod} />
+            </Cell>
             <Cell>{rotationPeriod}</Cell>
           </Row>
         </Body>
@@ -93,7 +105,7 @@ const Container = styled.section`
   align-items: center;
   gap: 20px;
   padding: 20px;
-  background-color: #231f33;
+  background-color: ${palette.blockBackground};
   border-radius: 0.25rem;
   margin-bottom: 16px;
 
@@ -115,6 +127,7 @@ const Table = styled.table``
 const Caption = styled.caption`
   margin-bottom: 20px;
   text-align: left;
+  color: ${palette.green};
 `
 
 const Body = styled.tbody``
@@ -123,8 +136,13 @@ const Row = styled.tr``
 
 const Cell = styled.td`
   padding-bottom: 10px;
+  text-align: start;
 
   &:first-of-type {
     padding-right: 20px;
+  }
+
+  & > span:last-of-type {
+    margin-left: 8px;
   }
 `

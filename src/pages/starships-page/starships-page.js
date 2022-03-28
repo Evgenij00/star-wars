@@ -42,16 +42,12 @@ export const StarshipsPage = () => {
   }, [id])
 
   return (
-    <div className="row mb2">
-      <div className="col-md-6">
+    <div>
+      <div>
         {starships ? (
-          <ul className="item-list list-group">
+          <ul>
             {starships.map(item => (
-              <li
-                className="list-group-item"
-                key={item.id}
-                onClick={() => history.push(`/starships/${item.id}`)}
-              >
+              <li key={item.id} onClick={() => history.push(`/starships/${item.id}`)}>
                 <span>
                   {item.name} ({item.model})
                 </span>
@@ -64,26 +60,26 @@ export const StarshipsPage = () => {
       </div>
 
       {starship && starshipImage ? (
-        <div className="col-md-6">
-          <div className="item-details card">
-            <img className="item-image" src={starshipImage} alt="item" />
+        <div>
+          <div>
+            <img src={starshipImage} alt="item" />
 
-            <div className="card-body">
+            <div>
               <h4>{starship.name}</h4>
 
-              <ul className="list-group list-group-flush">
-                <li className="list-group-item">
-                  <span className="term">Model</span>
+              <ul>
+                <li>
+                  <span>Model</span>
                   <span>{starship.model}</span>
                 </li>
 
-                <li className="list-group-item">
-                  <span className="term">Length</span>
+                <li>
+                  <span>Length</span>
                   <span>{starship.length}</span>
                 </li>
 
-                <li className="list-group-item">
-                  <span className="term">Cost</span>
+                <li>
+                  <span>Cost</span>
                   <span>{starship.costInCredits}</span>
                 </li>
               </ul>

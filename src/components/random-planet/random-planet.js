@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
-
-import './random-planet.css'
+import styled from 'styled-components'
 
 import { Spinner } from '../spinner'
 import { ErrorIndicator } from '../error-indicator'
@@ -50,7 +49,7 @@ export const RandomPlanet = () => {
   const content = hasData ? <PlanetView planet={planet} /> : null
 
   return (
-    <div className="random-planet jumbotron rounded">
+    <div>
       {errorMessage}
       {spinner}
       {content}
@@ -59,34 +58,73 @@ export const RandomPlanet = () => {
 }
 
 const PlanetView = ({ planet }) => {
-  console.log(planet)
-
   const { id, name, population, rotationPeriod, diameter } = planet
 
   return (
-    <>
-      <img
-        className="planet-image"
-        src={`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`}
-        alt="planet"
-      />
-      <div>
-        <h4>{name}</h4>
-        <ul className="list-group list-group-flush">
-          <li className="list-group-item">
-            <span className="term">Population</span>
-            <span>{population}</span>
-          </li>
-          <li className="list-group-item">
-            <span className="term">Rotation Period</span>
-            <span>{rotationPeriod}</span>
-          </li>
-          <li className="list-group-item">
-            <span className="term">Diameter</span>
-            <span>{diameter}</span>
-          </li>
-        </ul>
-      </div>
-    </>
+    <Container>
+      <Image src={`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`} alt="planet" />
+
+      <Table>
+        <Caption>{name}</Caption>
+
+        <Body>
+          <Row>
+            <Cell>Population</Cell>
+            <Cell>{population}</Cell>
+          </Row>
+
+          <Row>
+            <Cell>Diameter</Cell>
+            <Cell>{diameter}</Cell>
+          </Row>
+
+          <Row>
+            <Cell>Rotation Period</Cell>
+            <Cell>{rotationPeriod}</Cell>
+          </Row>
+        </Body>
+      </Table>
+    </Container>
   )
 }
+
+const Container = styled.section`
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  background-color: #231f33;
+  border-radius: 0.25rem;
+  margin-bottom: 16px;
+
+  @media (max-width: 500px) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+`
+
+const Image = styled.img`
+  min-width: 150px;
+  height: 150px;
+  border-radius: 10px;
+`
+
+const Table = styled.table``
+
+const Caption = styled.caption`
+  margin-bottom: 20px;
+  text-align: left;
+`
+
+const Body = styled.tbody``
+
+const Row = styled.tr``
+
+const Cell = styled.td`
+  padding-bottom: 10px;
+
+  &:first-of-type {
+    padding-right: 20px;
+  }
+`

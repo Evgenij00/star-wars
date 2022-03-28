@@ -41,19 +41,13 @@ export const PlanetsPage = () => {
     if (id) sendRequest()
   }, [id])
 
-  console.log(planet)
-
   return (
-    <div className="row mb2">
-      <div className="col-md-6">
+    <div>
+      <div>
         {planets ? (
-          <ul className="item-list list-group">
+          <ul>
             {planets.map(item => (
-              <li
-                className="list-group-item"
-                key={item.id}
-                onClick={() => history.push(`/planets/${item.id}`)}
-              >
+              <li key={item.id} onClick={() => history.push(`/planets/${item.id}`)}>
                 <span>{item.name}</span>
               </li>
             ))}
@@ -64,25 +58,25 @@ export const PlanetsPage = () => {
       </div>
 
       {planet && planetImage ? (
-        <div className="col-md-6">
-          <div className="item-details card">
-            <img className="item-image" src={planetImage} alt="item" />
+        <div>
+          <div>
+            <img src={planetImage} alt="item" />
 
-            <div className="card-body">
+            <div>
               <h4>{planet.name}</h4>
-              <ul className="list-group list-group-flush">
-                <li className="list-group-item">
+              <ul>
+                <li>
                   <span className="term">Population</span>
                   <span>{planet.population}</span>
                 </li>
 
-                <li className="list-group-item">
+                <li>
                   <span className="term">Rotation Period</span>
                   <span>{planet.rotationPeriod}</span>
                 </li>
 
-                <li className="list-group-item">
-                  <span className="term">Diameter</span>
+                <li>
+                  <span>Diameter</span>
                   <span>{planet.diameter}</span>
                 </li>
               </ul>

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
-
-import './people-page.css'
+import styled from 'styled-components'
 
 import { transformPerson } from '../../utils'
 import { getAllPeople, getPerson, getPersonImage } from '../../service'
@@ -44,49 +43,123 @@ export const PeoplePage = () => {
   }, [id])
 
   return (
-    <div className="row mb2">
-      <div className="col-md-6">
+    <Container>
+      <ListContainer>
         {people ? (
-          <ul className="item-list list-group">
+          <List>
             {people.map(item => (
-              <li
-                className="list-group-item"
-                key={item.id}
-                onClick={() => history.push(`/people/${item.id}`)}
-              >
+              <Item key={item.id} onClick={() => history.push(`/people/${item.id}`)}>
                 <span>{item.name}</span>
-              </li>
+              </Item>
             ))}
-          </ul>
+          </List>
         ) : (
           <Spinner />
         )}
-      </div>
+      </ListContainer>
 
       {person && personImage ? (
-        <div className="col-md-6">
-          <div className="item-details card">
-            <img className="item-image" src={personImage} alt="item" />
+        <InfoContainer>
+          <Image src={personImage} alt="item" />
 
-            <div className="card-body">
-              <h4>{person.name}</h4>
-              <ul className="list-group list-group-flush">
-                <li className="list-group-item">
-                  <span className="term">Gender</span>
-                  <span>{person.gender}</span>
-                </li>
+          <Table>
+            <Caption>{person.name}</Caption>
 
-                <li className="list-group-item">
-                  <span className="term">Eye Color</span>
-                  <span>{person['eye_color']}</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
+            <Body>
+              <Row>
+                <Cell>Gender</Cell>
+                <Cell>{person.gender}</Cell>
+              </Row>
+
+              <Row>
+                <Cell>Eye Color</Cell>
+                <Cell>{person.eyeColor}</Cell>
+              </Row>
+            </Body>
+          </Table>
+        </InfoContainer>
       ) : (
         <Spinner />
       )}
-    </div>
+    </Container>
   )
 }
+
+const Container = styled.section`
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+
+  @media (max-width: 930px) {
+    flex-direction: column;
+  }
+`
+
+const ListContainer = styled.div`
+  background-color: #231f33;
+  border-radius: 0.25rem;
+  width: 50%;
+
+  @media (max-width: 930px) {
+    width: 100%;
+  }
+`
+
+const List = styled.ul`
+  border-radius: inherit;
+`
+
+const Item = styled.li`
+  cursor: pointer;
+  padding: 0.75rem 1.25rem;
+  border: 1px solid #100e19;
+
+  &:first-of-type {
+    border-top-left-radius: inherit;
+    border-top-right-radius: inherit;
+  }
+
+  &:last-of-type {
+    border-bottom-left-radius: inherit;
+    border-bottom-right-radius: inherit;
+  }
+`
+
+const InfoContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  background-color: #231f33;
+  width: 50%;
+  border-radius: 0.25rem;
+
+  @media (max-width: 930px) {
+    width: 100%;
+  }
+`
+
+const Image = styled.img`
+  width: 30%;
+  min-width: 30%;
+  border-radius: 10px;
+`
+
+const Table = styled.table``
+
+const Caption = styled.caption`
+  margin-bottom: 20px;
+  text-align: left;
+`
+
+const Body = styled.tbody``
+
+const Row = styled.tr``
+
+const Cell = styled.td`
+  padding-bottom: 10px;
+
+  &:first-of-type {
+    padding-right: 20px;
+  }
+`

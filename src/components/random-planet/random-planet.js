@@ -2,13 +2,10 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
 import { Spinner } from '../spinner'
-import { ErrorIndicator } from '../error-indicator'
-
 import { getPlanet } from '../../service'
 import { transformPlanet } from '../../utils'
-import { palette } from '../../palette'
+import { palette, tooltips } from '../../data'
 import { Tooltip } from '../tooltip'
-import { tooltips } from '../../tolltips'
 
 export const RandomPlanet = () => {
   const interval = 5000

@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { usePopperTooltip } from 'react-popper-tooltip'
 
 import { ReactComponent as QuestionIcon } from '../../assets/icons/QuestionIcon.svg'
-import { palette } from '../../palette'
+import { palette } from '../../data/palette'
 
 export const Tooltip = ({ data }) => {
   const { getTooltipProps, getArrowProps, setTooltipRef, setTriggerRef, visible } =

@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
+import styled from 'styled-components'
 
 import { transformStarship } from '../../utils'
 import { getAllStarships, getStarship, getStarshipImage } from '../../service'
-import { Person, RandomPlanet, Spinner } from '../../components'
-import { Starship } from '../../components/starship/starship'
-import styled from 'styled-components'
-import { palette } from '../../palette'
+import { RandomPlanet, Spinner, Starship } from '../../components'
+
+import { palette } from '../../data'
 
 export const StarshipsPage = () => {
   const { id } = useParams()

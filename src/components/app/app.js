@@ -6,7 +6,7 @@ import 'normalize.css'
 
 import { Header, Footer, Preview } from '../../components'
 import { PeoplePage, PlanetsPage, StarshipsPage } from '../../pages'
-import { palette } from '../../palette'
+import { palette } from '../../data/palette'
 
 export const App = () => {
   return (

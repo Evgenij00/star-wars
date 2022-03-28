@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import styled from 'styled-components'
-import { palette } from '../../palette'
+import { palette } from '../../data/palette'
 
 export const Modal = ({ image, onClose }) => {
   useEffect(() => {

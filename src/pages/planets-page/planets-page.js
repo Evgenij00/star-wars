@@ -4,9 +4,8 @@ import { useParams, useHistory } from 'react-router-dom'
 
 import { transformPlanet } from '../../utils'
 import { getAllPlanets, getPlanet, getPlanetImage } from '../../service'
-import { RandomPlanet, Spinner } from '../../components'
-import { Planet } from '../../components/planet/planet'
-import { palette } from '../../palette'
+import { RandomPlanet, Spinner, Planet } from '../../components'
+import { palette } from '../../data'
 
 export const PlanetsPage = () => {
   const { id } = useParams()

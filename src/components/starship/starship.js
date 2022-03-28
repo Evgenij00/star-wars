@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 
 import { Tooltip, Modal } from '../../components'
-import { palette } from '../../palette'
-import { tooltips } from '../../tolltips'
+import { palette } from '../../data/palette'
+import { tooltips } from '../../data/tolltips'
 
 export const Starship = ({ starship, image }) => {
   const [showModal, setShowModal] = useState(false)

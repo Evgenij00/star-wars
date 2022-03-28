@@ -3,9 +3,9 @@ import styled from 'styled-components'
 import ReactAudioPlayer from 'react-audio-player'
 
 import { Tooltip } from '../../components'
-import { palette } from '../../palette'
-import { tooltips } from '../../tolltips'
-import { sounds } from '../../sounds'
+import { palette } from '../../data/palette'
+import { tooltips } from '../../data/tolltips'
+import { sounds } from '../../data/sounds'
 import { Modal } from '../modal/modal'
 
 export const Person = ({ person, image, id }) => {

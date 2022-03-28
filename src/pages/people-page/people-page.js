@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import { transformPerson } from '../../utils'
 import { getAllPeople, getPerson, getPersonImage } from '../../service'
 import { Person, RandomPlanet, Spinner } from '../../components'
-import { palette } from '../../palette'
+import { palette } from '../../data'
 
 export const PeoplePage = () => {
   const history = useHistory()

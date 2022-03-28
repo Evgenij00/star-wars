@@ -4,9 +4,8 @@ import styled from 'styled-components'
 
 import { transformPerson } from '../../utils'
 import { getAllPeople, getPerson, getPersonImage } from '../../service'
-import { Spinner } from '../../components'
+import { Person, RandomPlanet, Spinner } from '../../components'
 import { palette } from '../../palette'
-import { Person } from '../../components/person'
 
 export const PeoplePage = () => {
   const history = useHistory()
@@ -15,6 +14,7 @@ export const PeoplePage = () => {
   const [people, setPeople] = useState(null)
   const [person, setPerson] = useState(null)
   const [personImage, setPersonImage] = useState(null)
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     const sendRequest = async () => {
@@ -33,9 +33,11 @@ export const PeoplePage = () => {
     const sendRequest = async () => {
       try {
         setPerson(null)
+        setLoading(true)
         const { data } = await getPerson(id)
         setPerson(transformPerson(data))
         setPersonImage(getPersonImage(id))
+        setLoading(false)
       } catch (e) {
         console.warn(e)
       }
@@ -45,37 +47,48 @@ export const PeoplePage = () => {
   }, [id])
 
   return (
-    <Container>
-      <ListContainer>
-        {people ? (
-          <List>
-            {people.map(item => (
-              <Item key={item.id} onClick={() => history.push(`/people/${item.id}`)}>
-                <span>{item.name}</span>
-              </Item>
-            ))}
-          </List>
-        ) : (
-          <Spinner />
-        )}
-      </ListContainer>
+    <>
+      <RandomPlanet />
+      <Container>
+        <ListContainer>
+          {people ? (
+            <List>
+              {people.map(item => (
+                <Item key={item.id} onClick={() => history.push(`/people/${item.id}`)}>
+                  <span>{item.name}</span>
+                </Item>
+              ))}
+            </List>
+          ) : (
+            <Spinner />
+          )}
+        </ListContainer>
 
-      {person && personImage ? <Person person={person} image={personImage} id={id} /> : <Spinner />}
-    </Container>
+        {loading ? (
+          <Spinner />
+        ) : person && personImage ? (
+          <Person person={person} image={personImage} id={id} />
+        ) : (
+          <Message>Select a character from the list</Message>
+        )}
+      </Container>
+    </>
   )
 }
 
-const Container = styled.section`
+const Container = styled.main`
   display: flex;
   align-items: flex-start;
   gap: 16px;
+  padding: 16px 0;
+  min-height: 476px;
 
   @media (max-width: 930px) {
     flex-direction: column;
   }
 `
 
-const ListContainer = styled.div`
+const ListContainer = styled.section`
   background-color: ${palette.blockBackground};
   border-radius: 0.25rem;
   width: 50%;
@@ -108,4 +121,9 @@ const Item = styled.li`
     background-color: ${palette.green};
     transition: background-color 2ms;
   }
+`
+
+const Message = styled.div`
+  padding-top: 20px;
+  color: ${palette.green};
 `

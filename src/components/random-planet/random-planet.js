@@ -107,7 +107,6 @@ const Container = styled.section`
   padding: 20px;
   background-color: ${palette.blockBackground};
   border-radius: 0.25rem;
-  margin-bottom: 16px;
 
   @media (max-width: 500px) {
     flex-direction: column;

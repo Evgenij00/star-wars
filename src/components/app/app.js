@@ -4,7 +4,9 @@ import styled from 'styled-components'
 
 import 'normalize.css'
 
-import { Header, RandomPlanet } from '../../components'
+const gif = require('../../assets/images/main.gif')
+
+import { Header, Footer, Preview, RandomPlanet } from '../../components'
 import { PeoplePage, PlanetsPage, StarshipsPage } from '../../pages'
 import { palette } from '../../palette'
 
@@ -14,14 +16,15 @@ export const App = () => {
       <MainBlock>
         <InnerContainer>
           <Header />
-          <RandomPlanet />
 
           <Switch>
+            <Route exact path="/" component={Preview} />
             <Route path="/people/:id?" component={PeoplePage} />
             <Route path="/planets/:id?" component={PlanetsPage} />
             <Route path="/starships/:id?" component={StarshipsPage} />
           </Switch>
         </InnerContainer>
+        <Footer />
       </MainBlock>
     </BrowserRouter>
   )
@@ -48,4 +51,9 @@ const InnerContainer = styled.div`
     width: 100%;
     padding: 0 10px;
   }
+`
+
+const Images = styled.img`
+  width: 100%;
+  border-radius: 1rem;
 `

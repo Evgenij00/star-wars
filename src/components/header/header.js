@@ -18,11 +18,11 @@ export const Header = () => {
 
   const defineActiveLink = (currentPath, targetPath, label) => {
     return currentPath.includes(targetPath) ? (
-      <LinkActiveItem>
+      <LinkActiveItem onClick={() => setShowMenu(false)}>
         <LinkActiveNav to={targetPath}>{label}</LinkActiveNav>
       </LinkActiveItem>
     ) : (
-      <LinkItem>
+      <LinkItem onClick={() => setShowMenu(false)}>
         <LinkNav to={targetPath}>{label}</LinkNav>
       </LinkItem>
     )
@@ -37,8 +37,12 @@ export const Header = () => {
       </BurgerBtn>
 
       <InnerContainer showMenu={showMenu}>
-        <h3>
-          <MainLink to="/">Star Wars</MainLink>
+        <h3 onClick={() => setShowMenu(false)}>
+          {location.pathname === '/' ? (
+            <MainActiveLink to="/">Star Wars</MainActiveLink>
+          ) : (
+            <MainLink to="/">Star Wars</MainLink>
+          )}
         </h3>
 
         <List>
@@ -88,10 +92,15 @@ const MainLink = styled(Link)`
   line-height: 1.2;
   font-size: 2rem;
   transition: color 2ms;
+  color: ${palette.green};
 
   &:hover {
     color: ${palette.orange};
   }
+`
+
+const MainActiveLink = styled(MainLink)`
+  color: ${palette.orange};
 `
 
 const List = styled.ul`
@@ -117,7 +126,7 @@ const LinkActiveItem = styled(LinkItem)`
 const LinkNav = styled(Link)`
   text-decoration: none;
   color: ${palette.green};
-  transition: color 1ms;
+  transition: fill 1ms;
 
   &:hover {
     color: ${palette.orange};

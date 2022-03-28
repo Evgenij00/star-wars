@@ -14,9 +14,9 @@ export const Person = ({ person, image, id }) => {
 
   return (
     <OuterContainer>
-      <Header>
-        <Image src={image} alt="item" onClick={() => setShowModal(true)} />
+      <Image src={image} alt="item" onClick={() => setShowModal(true)} />
 
+      <Content>
         <Table>
           <Caption>{person.name}</Caption>
 
@@ -38,16 +38,20 @@ export const Person = ({ person, image, id }) => {
             </Row>
           </Body>
         </Table>
-      </Header>
 
-      {sound && sound.id && <Player src={sound.sound} controls />}
+        {sound && sound.id && <Player src={sound.sound} controls />}
+      </Content>
 
       {image && showModal && <Modal image={image} onClose={() => setShowModal(false)} />}
     </OuterContainer>
   )
 }
 
-const OuterContainer = styled.div`
+const OuterContainer = styled.section`
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
   padding: 16px;
   background-color: ${palette.blockBackground};
   width: 50%;
@@ -56,13 +60,6 @@ const OuterContainer = styled.div`
   @media (max-width: 930px) {
     width: 100%;
   }
-`
-
-const Header = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  margin-bottom: 16px;
 `
 
 const Image = styled.img`
@@ -77,7 +74,16 @@ const Image = styled.img`
   }
 `
 
-const Table = styled.table``
+const Content = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  gap: 16px;
+`
+
+const Table = styled.table`
+  align-self: flex-start;
+`
 
 const Caption = styled.caption`
   margin-bottom: 20px;
@@ -104,4 +110,5 @@ const Cell = styled.td`
 
 const Player = styled(ReactAudioPlayer)`
   height: 35px;
+  width: 100%;
 `

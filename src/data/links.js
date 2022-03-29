@@ -11,6 +11,11 @@ export const links = {
         label: 'SWAPI API',
       },
       {
+        id: 3,
+        link: 'https://github.com/Evgenij00/star-wars',
+        label: 'Git repository',
+      },
+      {
         id: 2,
         link: 'https://www.starwars.com/',
         label: 'Official Star Wars website',

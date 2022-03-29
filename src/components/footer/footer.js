@@ -56,6 +56,7 @@ export const Footer = () => {
 
 const OuterContainer = styled.footer`
   padding: 40px 0 16px;
+  margin-top: 24px;
   border-top: 1px solid ${palette.orange};
 `
 
